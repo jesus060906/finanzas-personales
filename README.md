@@ -209,6 +209,27 @@ El detalle completo está en **[docs/arquitectura.md](docs/arquitectura.md)**.
 - Autorización por rol validada **en el servidor** en cada endpoint.
 - Variables sensibles fuera del código; `.env` está en `.gitignore`.
 
+### Estado de `npm audit`
+
+Quedan 9 avisos (1 crítico, 4 altos, 2 moderados, 2 bajos) y **no tienen
+parche disponible sin romper compatibilidad**. Todos vienen de la cadena de
+`sqlite3`:
+
+```
+sqlite3 → node-gyp → tar → make-fetch-happen → cacache
+```
+
+Esas librerías solo se usan **al compilar el módulo nativo** de `sqlite3`
+(`node-gyp` desempaqueta fuentes con `tar`). No se ejecutan al atender
+peticiones, así que el riesgo en tiempo de ejecución es bajo. El único arreglo
+que ofrece npm es saltar a `sqlite3@6.0.1`, un cambio mayor que puede alterar el
+comportamiento de la conexión, por lo que no se aplicó a ciegas.
+
+```bash
+npm audit          # ver el detalle
+npm outdated       # revisar versiones disponibles
+```
+
 ---
 
 ## Pruebas
