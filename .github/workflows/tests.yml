@@ -27,7 +27,13 @@ jobs:
           cache: npm
 
       - name: Instalar dependencias
-        run: npm ci
+        # Se usa npm install y no npm ci a proposito: el arbol de dependencias
+        # incluye bindings opcionales especificos de plataforma (los nativos de
+        # sqlite3 y el binding WASM que arrastra jest-resolve). El lockfile se
+        # genera en Windows y no puede representar el subarbol que Linux
+        # necesita, por lo que npm ci falla al validar. npm install resuelve la
+        # diferencia en cada runner.
+        run: npm install
 
       - name: Correr las pruebas
         run: npm test
