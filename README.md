@@ -1,5 +1,10 @@
 # Sistema de Gestión de Finanzas Personales
 
+[![Pruebas](https://github.com/jesus060906/finanzas-personales/actions/workflows/tests.yml/badge.svg)](https://github.com/jesus060906/finanzas-personales/actions/workflows/tests.yml)
+[![Licencia](https://img.shields.io/badge/Licencia-MIT-blue.svg)](LICENSE)
+[![Node](https://img.shields.io/badge/node-18%20%7C%2020%20%7C%2022-5FA04E)](package.json)
+[![Express](https://img.shields.io/badge/Express-4-000000.svg)](https://expressjs.com)
+
 Aplicación web multiusuario para registrar ingresos y egresos, llevar el corte
 mensual de cada usuario y —para personas jurídicas— llevar un módulo de
 contabilidad básica con plan de cuentas, asientos y libros contables.
