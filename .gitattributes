@@ -1,0 +1,13 @@
+# Normalización de finales de línea entre sistemas operativos
+* text=auto
+
+*.js   text eol=lf
+*.json text eol=lf
+*.css  text eol=lf
+*.html text eol=lf
+*.md   text eol=lf
+*.svg  text eol=lf
+
+# Archivos generados / dependencias que no deben normalizarse
+*.min.js -text
+package-lock.json -diff
