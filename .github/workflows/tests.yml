@@ -14,7 +14,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['18', '20', '22']
+        # Node 18 quedo fuera porque sqlite3 6.x exige >= 20.17.0
+        node: ['20', '22']
 
     steps:
       - name: Obtener el codigo

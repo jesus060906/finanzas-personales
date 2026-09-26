@@ -8,7 +8,7 @@ La BD se siembra sola al arrancar si está vacía (4 usuarios demo, 15 transacci
 | Usuario | Cédula / RNC | Contraseña | Tipo | Límite egresos | Día de corte |
 |---|---|---|---|---|---|
 | Administrador | `000-0000000-0` | `admin123` | JURÍDICA · ADMIN | — | 1 |
-| Juan Pérez | `001-1234567-3` | `usuario123` | FÍSICA | RD$15,000 | 15 |
+| Juan Pérez | `001-1234567-3` | `usuario123` | FÍSICA | RD$15,000 | 28 |
 | Carlos Rivera | `402-1234567-8` | `usuario123` | FÍSICA | RD$30,000 | 10 |
 | Comercial Norte, S.R.L. | `130-12345-4` | `empresa123` | JURÍDICA | RD$200,000 | 28 |
 

@@ -2,7 +2,7 @@
 
 [![Pruebas](https://github.com/jesus060906/finanzas-personales/actions/workflows/tests.yml/badge.svg)](https://github.com/jesus060906/finanzas-personales/actions/workflows/tests.yml)
 [![Licencia](https://img.shields.io/badge/Licencia-MIT-blue.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-18%20%7C%2020%20%7C%2022-5FA04E)](package.json)
+[![Node](https://img.shields.io/badge/node-20%20%7C%2022-5FA04E)](package.json)
 [![Express](https://img.shields.io/badge/Express-4-000000.svg)](https://expressjs.com)
 
 Aplicación web multiusuario para registrar ingresos y egresos, llevar el corte
@@ -37,7 +37,8 @@ frontend, sin framework ni paso de build.
 
 ## Requisitos
 
-- **Node.js 18 o superior** (probado en v22)
+- **Node.js 20.17 o superior** (probado en v22). El mínimo lo impone `sqlite3`
+  6.x, que deja de dar soporte a Node 18.
 - **npm 9 o superior**
 - SQLite (incluido) o MySQL (opcional). No hace falta instalar una base de datos
   para usar el proyecto.
@@ -87,7 +88,7 @@ La base se siembra sola con estos usuarios:
 | Usuario | Cédula / RNC | Contraseña | Tipo | Límite egresos | Día de corte |
 |---|---|---|---|---|---|
 | Administrador | `000-0000000-0` | `admin123` | Jurídica · Admin | — | 1 |
-| Juan Pérez | `001-1234567-3` | `usuario123` | Física | RD$15,000 | 15 |
+| Juan Pérez | `001-1234567-3` | `usuario123` | Física | RD$15,000 | 28 |
 | Carlos Rivera | `402-1234567-8` | `usuario123` | Física | RD$30,000 | 10 |
 | Comercial Norte, S.R.L. | `130-12345-4` | `empresa123` | Jurídica | RD$200,000 | 28 |
 
@@ -211,19 +212,19 @@ El detalle completo está en **[docs/arquitectura.md](docs/arquitectura.md)**.
 
 ### Estado de `npm audit`
 
-Quedan 9 avisos (1 crítico, 4 altos, 2 moderados, 2 bajos) y **no tienen
-parche disponible sin romper compatibilidad**. Todos vienen de la cadena de
-`sqlite3`:
+Quedan **2 avisos moderados** y ambos están en `uuid`, que Sequelize fija en
+`^8.3.2` mientras el aviso pide `>=11.1.1`. Se trata de un fallo de límites de
+buffer en las variantes v3/v5/v6 de `uuid` cuando se les pasa un buffer; el
+proyecto no importa `uuid` en ningún punto y Sequelize solo usa v4 para generar
+identificadores, que no es la ruta afectada.
 
-```
-sqlite3 → node-gyp → tar → make-fetch-happen → cacache
-```
+La única "solución" que propone npm es bajar Sequelize a la 3.30.0, lo que
+rompería el proyecto. No se aplica.
 
-Esas librerías solo se usan **al compilar el módulo nativo** de `sqlite3`
-(`node-gyp` desempaqueta fuentes con `tar`). No se ejecutan al atender
-peticiones, así que el riesgo en tiempo de ejecución es bajo. El único arreglo
-que ofrece npm es saltar a `sqlite3@6.0.1`, un cambio mayor que puede alterar el
-comportamiento de la conexión, por lo que no se aplicó a ciegas.
+Como referencia, este repositorio bajó de **9 avisos (1 crítico) a 2** al
+actualizar `sqlite3` de la 5.x a la 6.x, lo que además eliminó toda la cadena
+`node-gyp → tar → make-fetch-happen → cacache` que sí se ejecutaba durante la
+compilación del módulo nativo.
 
 ```bash
 npm audit          # ver el detalle

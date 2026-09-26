@@ -42,7 +42,7 @@
     "jspdf-autotable": "^5.0.8",
     "mysql2": "^3.24.4",
     "sequelize": "^6.37.5",
-    "sqlite3": "^5.1.7",
+    "sqlite3": "^6.0.1",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
