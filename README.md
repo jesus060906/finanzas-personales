@@ -205,7 +205,8 @@ El detalle completo está en **[docs/arquitectura.md](docs/arquitectura.md)**.
 
 - Contraseñas con **bcrypt**, nunca en texto plano.
 - Sesiones en servidor con cookie `httpOnly` y `sameSite`.
-- **Helmet** para cabeceras de seguridad y **CORS** configurado.
+- **Helmet** para cabeceras de seguridad. No hay CORS porque el frontend y la
+  API se sirven desde el mismo origen.
 - **Rate limiting** en registro y login.
 - Autorización por rol validada **en el servidor** en cada endpoint.
 - Variables sensibles fuera del código; `.env` está en `.gitignore`.
