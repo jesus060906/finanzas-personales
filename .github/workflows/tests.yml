@@ -37,3 +37,18 @@ jobs:
 
       - name: Correr las pruebas
         run: npm test
+
+      # El reporte se genera en una sola version de Node para no triplicar el
+      # tiempo de la matriz. Se publica como artifact para poder descargarlo
+      # desde la pestana Actions sin depender de ningun servicio externo.
+      - name: Reporte de cobertura
+        if: matrix.node == '22'
+        run: npm run test:coverage
+
+      - name: Publicar el reporte HTML
+        if: matrix.node == '22'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura
+          path: coverage/lcov-report
+          retention-days: 30

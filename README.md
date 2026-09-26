@@ -241,6 +241,32 @@ npm test
 161 casos cubriendo validación de cédulas, límites de corte, permisos por rol,
 anulación de transacciones, asientos contables y reglas de consistencia.
 
+### Cobertura
+
+Cobertura medida sobre `controllers`, `middlewares` y `utils`:
+
+| Métrica | Total |
+|---|---|
+| Sentencias | 75.1 % |
+| Ramas | 67.6 % |
+| Funciones | 89.3 % |
+| Líneas | 81.2 % |
+
+Los módulos de validación están al 100 % (`validators.js` y
+`listasBlancas.js`). Cuatro de los siete controladores cubren el 100 % de sus
+funciones (cortes, reportes, transacciones y usuarios); lo que baja el promedio
+son las rutas de error y los tramos de actualización de los controladores de
+catálogos y contabilidad.
+
+Para regenerarla:
+
+```bash
+npm run test:coverage     # abre coverage/lcov-report/index.html
+```
+
+El CI publica el mismo reporte como artifact en cada run, en la pestaña
+**Actions** del repo.
+
 ---
 
 ## Licencia
